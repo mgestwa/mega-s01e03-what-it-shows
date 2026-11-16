@@ -1,0 +1,41 @@
+---
+layout: runbook
+title: '#4471 · Split the date reports by cause'
+owner: support desk
+status: proposed
+reviewed: '2026-11-16'
+signature: 'Codex / MEGA.dev S01E03'
+---
+
+<script>
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import QueueTimeline from '#lib/kb/QueueTimeline.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+The [incident page](/kb/incidents/4471) marked all of #4471 as one known issue with a fix queued. The 4 October 2026 export shows two problems. Give each its own engineering ticket and count.
+
+## What needs fixing
+
+- **Parser.** The shared parser reads numeric dates month first even when a tenant uses a day-first locale. Interpret input using the tenant's date order.
+- **Booking-v3 hint.** The form prompts visitors to enter `MM/DD/YYYY` while reading day-first tenants' entries as `DD/MM/YYYY`. Make the form's hint match the date order it uses to interpret input.
+
+<CauseTable ticket={4471} />
+
+The counts use one record per report ID and the desk's cause rules for tenant locale, booking form and intake channel. The **tagged as** column shows the original intake guesses. Keep the reports flagged as apparent one-day moves under the cause shown above and verify those symptoms when checking the fix.
+
+## Received and merged
+
+<QueueTimeline ticket={4471} />
+
+The week starting 29 June shows a batch of earlier reports being merged into #4471. Reports continued to arrive through the end of the export. The queue records intake and merges. Use a separate verification step before marking either fix complete.
+
+## How to triage the next report
+
+[Decision 0001](/kb/decisions/0001-dedupe-by-subject) tells the desk to merge on normalized subject lines. Check the cause first. Two reports with the same subject from the same day-first `booking-v3` tenant can need different fixes if one came through the form and the other through the app. An app report and an email report can share the parser cause even when their subjects differ.
+
+1. Look up the tenant's date order and form version, then identify the report's channel.
+2. Merge a report into an existing engineering ticket when both have the same verified cause. Route parser and hint reports to their respective tickets.
+3. Keep reports with missing tenant details unclassified while the desk verifies their cause.
+
+<RenderStamp {signature} />

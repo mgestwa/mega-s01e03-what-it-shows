@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>#4471 · Split the date reports by cause · support kb</title>
+  <style>:root {
+    --bg: #fbfaf7; --fg: #1d1d1b; --muted: #6b6a66; --line: #e3e0d8;
+    --accent: #2f6f5e; --warn: #b4501f; --warn-bg: #fbeee6; --note-bg: #eef5f2;
+    --mono: ui-monospace, 'Cascadia Code', Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #171716; --fg: #ecebe6; --muted: #9c9a93; --line: #34332f;
+      --accent: #6fbfa6; --warn: #f0905d; --warn-bg: #3a2418; --note-bg: #1d2c27;
+    }
+  }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 system-ui, sans-serif; }
+  .kb table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: 0.92rem; }
+  .kb th, .kb td { border-bottom: 1px solid var(--line); padding: 0.35rem 0.5rem; text-align: left; }
+  .kb code { font-family: var(--mono); font-size: 0.88em; }
+  .kb a { color: var(--accent); }
+  .kb { max-width: 760px; margin: 0 auto; padding: 2rem 16px 4rem; }
+  .crumb { font: 0.8rem var(--mono); text-decoration: none; color: var(--muted); }
+  h1 { margin: 0.25rem 0 0.5rem; line-height: 1.2; }
+  .meta { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; color: var(--muted); font-size: 0.85rem; margin: 0; }
+  .status { border: 1px solid var(--line); border-radius: 99px; padding: 0 0.6rem; }
+  .stale { color: var(--warn); font-weight: 600; }
+  .banner { background: var(--warn-bg); color: var(--warn); padding: 0.6rem 1rem; border-radius: 6px; }
+  footer { margin-top: 3rem; color: var(--muted); font-size: 0.8rem; border-top: 1px solid var(--line); padding-top: 1rem; }
+.sum { font-size: 1.1rem; }
+  .tags { color: var(--muted); font-size: 0.85em; }
+  .note { color: var(--muted); font-size: 0.85em; }
+  .wrong td { background: var(--warn-bg); }
+  .wrong td:last-child { color: var(--warn); font-weight: 600; }
+svg { width: 100%; max-width: 640px; }
+  .in { fill: var(--warn); }
+  .merged { fill: var(--accent); }
+  text { font: 8px var(--mono); fill: var(--muted); text-anchor: middle; }
+  figcaption { color: var(--muted); font-size: 0.85rem; }
+  .key { display: inline-block; width: 0.7em; height: 0.7em; border-radius: 2px; }
+  .key.in { background: var(--warn); }
+  .key.merged { background: var(--accent); }
+.stamp { margin: 2rem 0 0; font: 0.85rem var(--mono); color: var(--muted); }
+  .stamp b { color: var(--accent); letter-spacing: 0.04em; }
+  .missing { color: var(--warn); }</style>
+</head>
+<body>
+<div class="kb">
+  <header>
+    <a class="crumb" href="/kb">support desk · kb</a>
+    <h1>#4471 · Split the date reports by cause</h1>
+    <p class="meta"><span>owner <b>support desk</b></span><span class="status proposed">proposed</span><span>reviewed 2026-11-16 · 0 days ago</span></p>
+  </header>
+  
+  <main><p>The <a href="/kb/incidents/4471">incident page</a> marked all of #4471 as one known issue with a fix queued. The 4 October 2026 export shows two problems. Give each its own engineering ticket and count.</p>
+<h2>What needs fixing</h2>
+<ul>
+<li><strong>Parser.</strong> The shared parser reads numeric dates month first even when a tenant uses a day-first locale. Interpret input using the tenant's date order.</li>
+<li><strong>Booking-v3 hint.</strong> The form prompts visitors to enter <code>MM/DD/YYYY</code> while reading day-first tenants' entries as <code>DD/MM/YYYY</code>. Make the form's hint match the date order it uses to interpret input.</li>
+</ul>
+<p class="sum"><strong>412</strong> reports merged into #4471 · <strong>2</strong> causes</p>
+<table>
+  <thead><tr><th>cause</th><th>reports</th><th>tagged as</th><th>tenants</th><th>seen</th><th></th></tr></thead>
+  <tbody><tr><td><code>parser</code></td><td>379</td><td class="tags">parser ×356 · hint ×23</td><td>11</td><td>2026-04-01 → 2026-10-04</td><td>#4471</td></tr>
+<tr class="wrong"><td><code>hint</code></td><td>33</td><td class="tags">hint ×18 · parser ×15</td><td>3</td><td>2026-04-17 → 2026-09-22</td><td>not this ticket — no ticket of its own</td></tr></tbody>
+</table>
+<p class="note">5 reports read as a one-day move; filed under <code>parser</code> by tenant.</p>
+<p>The counts use one record per report ID and the desk's cause rules for tenant locale, booking form and intake channel. The <strong>tagged as</strong> column shows the original intake guesses. Keep the reports flagged as apparent one-day moves under the cause shown above and verify those symptoms when checking the fix.</p>
+<h2>Received and merged</h2>
+<figure>
+<svg viewBox="0 0 648 140" role="img" aria-label="reports received and merged into #4471, per week"><rect class="in" x="2" y="106.29629629629629" width="9" height="3.7037037037037033"></rect><rect class="merged" x="12" y="110" width="9" height="0"></rect><text x="12" y="128">03-30</text>
+<rect class="in" x="26" y="104.17989417989418" width="9" height="5.82010582010582"></rect><rect class="merged" x="36" y="110" width="9" height="0"></rect>
+<rect class="in" x="50" y="102.5925925925926" width="9" height="7.4074074074074066"></rect><rect class="merged" x="60" y="110" width="9" height="0"></rect>
+<rect class="in" x="74" y="99.94708994708995" width="9" height="10.052910052910052"></rect><rect class="merged" x="84" y="110" width="9" height="0"></rect>
+<rect class="in" x="98" y="101.53439153439153" width="9" height="8.465608465608465"></rect><rect class="merged" x="108" y="110" width="9" height="0"></rect><text x="108" y="128">04-27</text>
+<rect class="in" x="122" y="103.65079365079364" width="9" height="6.349206349206349"></rect><rect class="merged" x="132" y="110" width="9" height="0"></rect>
+<rect class="in" x="146" y="105.76719576719577" width="9" height="4.232804232804233"></rect><rect class="merged" x="156" y="110" width="9" height="0"></rect>
+<rect class="in" x="170" y="103.65079365079364" width="9" height="6.349206349206349"></rect><rect class="merged" x="180" y="110" width="9" height="0"></rect>
+<rect class="in" x="194" y="102.5925925925926" width="9" height="7.4074074074074066"></rect><rect class="merged" x="204" y="110" width="9" height="0"></rect><text x="204" y="128">05-25</text>
+<rect class="in" x="218" y="101.00529100529101" width="9" height="8.994708994708994"></rect><rect class="merged" x="228" y="110" width="9" height="0"></rect>
+<rect class="in" x="242" y="101.53439153439153" width="9" height="8.465608465608465"></rect><rect class="merged" x="252" y="110" width="9" height="0"></rect>
+<rect class="in" x="266" y="101.00529100529101" width="9" height="8.994708994708994"></rect><rect class="merged" x="276" y="110" width="9" height="0"></rect>
+<rect class="in" x="290" y="104.17989417989418" width="9" height="5.82010582010582"></rect><rect class="merged" x="300" y="110" width="9" height="0"></rect><text x="300" y="128">06-22</text>
+<rect class="in" x="314" y="102.06349206349206" width="9" height="7.936507936507936"></rect><rect class="merged" x="324" y="10" width="9" height="100"></rect>
+<rect class="in" x="338" y="99.94708994708995" width="9" height="10.052910052910052"></rect><rect class="merged" x="348" y="100.47619047619048" width="9" height="9.523809523809524"></rect>
+<rect class="in" x="362" y="101.00529100529101" width="9" height="8.994708994708994"></rect><rect class="merged" x="372" y="100.47619047619048" width="9" height="9.523809523809524"></rect>
+<rect class="in" x="386" y="102.06349206349206" width="9" height="7.936507936507936"></rect><rect class="merged" x="396" y="102.06349206349206" width="9" height="7.936507936507936"></rect><text x="396" y="128">07-20</text>
+<rect class="in" x="410" y="99.94708994708995" width="9" height="10.052910052910052"></rect><rect class="merged" x="420" y="99.94708994708995" width="9" height="10.052910052910052"></rect>
+<rect class="in" x="434" y="105.76719576719577" width="9" height="4.232804232804233"></rect><rect class="merged" x="444" y="105.76719576719577" width="9" height="4.232804232804233"></rect>
+<rect class="in" x="458" y="102.06349206349206" width="9" height="7.936507936507936"></rect><rect class="merged" x="468" y="102.06349206349206" width="9" height="7.936507936507936"></rect>
+<rect class="in" x="482" y="99.41798941798942" width="9" height="10.582010582010582"></rect><rect class="merged" x="492" y="99.41798941798942" width="9" height="10.582010582010582"></rect><text x="492" y="128">08-17</text>
+<rect class="in" x="506" y="102.5925925925926" width="9" height="7.4074074074074066"></rect><rect class="merged" x="516" y="102.5925925925926" width="9" height="7.4074074074074066"></rect>
+<rect class="in" x="530" y="98.88888888888889" width="9" height="11.11111111111111"></rect><rect class="merged" x="540" y="98.88888888888889" width="9" height="11.11111111111111"></rect>
+<rect class="in" x="554" y="99.41798941798942" width="9" height="10.582010582010582"></rect><rect class="merged" x="564" y="99.41798941798942" width="9" height="10.582010582010582"></rect>
+<rect class="in" x="578" y="102.06349206349206" width="9" height="7.936507936507936"></rect><rect class="merged" x="588" y="102.06349206349206" width="9" height="7.936507936507936"></rect><text x="588" y="128">09-14</text>
+<rect class="in" x="602" y="96.77248677248677" width="9" height="13.227513227513226"></rect><rect class="merged" x="612" y="97.83068783068784" width="9" height="12.16931216931217"></rect>
+<rect class="in" x="626" y="102.06349206349206" width="9" height="7.936507936507936"></rect><rect class="merged" x="636" y="101.00529100529101" width="9" height="8.994708994708994"></rect></svg>
+<figcaption><span class="key in"></span> received · <span class="key merged"></span> merged into #4471 · per week</figcaption>
+</figure>
+<p>The week starting 29 June shows a batch of earlier reports being merged into #4471. Reports continued to arrive through the end of the export. The queue records intake and merges. Use a separate verification step before marking either fix complete.</p>
+<h2>How to triage the next report</h2>
+<p><a href="/kb/decisions/0001-dedupe-by-subject">Decision 0001</a> tells the desk to merge on normalized subject lines. Check the cause first. Two reports with the same subject from the same day-first <code>booking-v3</code> tenant can need different fixes if one came through the form and the other through the app. An app report and an email report can share the parser cause even when their subjects differ.</p>
+<ol>
+<li>Look up the tenant's date order and form version, then identify the report's channel.</li>
+<li>Merge a report into an existing engineering ticket when both have the same verified cause. Route parser and hint reports to their respective tickets.</li>
+<li>Keep reports with missing tenant details unclassified while the desk verifies their cause.</li>
+</ol>
+<p class="stamp">desk ref <b>DR-KE96-CY54</b></p></main>
+  <footer>Pages are written by people. Tables and charts are built from data at render time.</footer>
+</div>
+</body>
+</html>
