@@ -2,9 +2,9 @@
 layout: runbook
 title: '#4471 · Split the date reports by cause'
 owner: support desk
-status: proposed
+status: closed
 reviewed: '2026-11-16'
-signature: 'Codex / MEGA.dev S01E03'
+signature: "v1.eyJzdWIiOiI3NjI2IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTQ4MzQzMDksImV4cCI6MTc5NDkyMDcwOX0.T4eNam8XWaTRMb9PjXAyrDaJtZgQs7iMg9v-uiQIULM"
 ---
 
 <script>
@@ -13,26 +13,30 @@ signature: 'Codex / MEGA.dev S01E03'
   import RenderStamp from '#lib/kb/RenderStamp.svelte';
 </script>
 
-The [incident page](/kb/incidents/4471) marked all of #4471 as one known issue with a fix queued. The 4 October 2026 export shows two problems. Give each its own engineering ticket and count.
+The [incident page](/kb/incidents/4471) marked all of #4471 as one known issue with a fix queued. The 4 October 2026 export separates the reports into two causes. The desk later recorded a different outcome for each.
 
-## What needs fixing
+## Engineering update for 5 October 2026
 
-- **Parser.** The shared parser reads numeric dates month first even when a tenant uses a day-first locale. Interpret input using the tenant's date order.
-- **Booking-v3 hint.** The form prompts visitors to enter `MM/DD/YYYY` while reading day-first tenants' entries as `DD/MM/YYYY`. Make the form's hint match the date order it uses to interpret input.
+The [support desk closed #4471](https://hq.mega.dev/challenges/what-it-shows#engineering-update) on 5 October.
+
+- **Parser: fixed.** The shared parser had read numeric dates month first for tenants using a day-first locale. Engineering recorded `fix(dates): parse dd/mm for eu locales`. The matching resolution for [parser issue #2](https://github.com/mgestwa/mega-s01e03-what-it-shows/issues/2) is **Completed**.
+- **Booking-v3 hint: won't fix.** The form displayed `MM/DD/YYYY` while reading day-first tenants' entries as `DD/MM/YYYY`. The desk retired the form. The matching resolution for [hint issue #1](https://github.com/mgestwa/mega-s01e03-what-it-shows/issues/1) is **Not planned**.
+
+## Reports in the 4 October export
 
 <CauseTable ticket={4471} />
 
-The counts use one record per report ID and the desk's cause rules for tenant locale, booking form and intake channel. The **tagged as** column shows the original intake guesses. Keep the reports flagged as apparent one-day moves under the cause shown above and verify those symptoms when checking the fix.
+The counts use one record per report ID and the desk's cause rules for tenant locale, booking form and intake channel. The **tagged as** column shows the original intake guesses. The last column shows how the reports were filed when the desk made the export. The apparent one-day moves remain counted under parser and flagged for follow-up on their specific symptoms.
 
 ## Received and merged
 
 <QueueTimeline ticket={4471} />
 
-The week starting 29 June shows a batch of earlier reports being merged into #4471. Reports continued to arrive through the end of the export. The queue records intake and merges. Use a separate verification step before marking either fix complete.
+The week starting 29 June shows a batch of earlier reports being merged into #4471. Reports continued to arrive through the end of the export. The queue shows intake and merges through 4 October. The 5 October engineering update records the outcomes separately.
 
 ## How to triage the next report
 
-[Decision 0001](/kb/decisions/0001-dedupe-by-subject) tells the desk to merge on normalized subject lines. Check the cause first. Two reports with the same subject from the same day-first `booking-v3` tenant can need different fixes if one came through the form and the other through the app. An app report and an email report can share the parser cause even when their subjects differ.
+[Decision 0001](/kb/decisions/0001-dedupe-by-subject), last reviewed on 11 June 2024, tells the desk to merge on normalized subject lines. Check the cause first. Two reports with the same subject from the same day-first `booking-v3` tenant can need different fixes if one came through the form and the other through the app. An app report and an email report can share the parser cause even when their subjects differ.
 
 1. Look up the tenant's date order and form version, then identify the report's channel.
 2. Merge a report into an existing engineering ticket when both have the same verified cause. Route parser and hint reports to their respective tickets.

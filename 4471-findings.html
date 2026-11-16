@@ -50,15 +50,17 @@ svg { width: 100%; max-width: 640px; }
   <header>
     <a class="crumb" href="/kb">support desk · kb</a>
     <h1>#4471 · Split the date reports by cause</h1>
-    <p class="meta"><span>owner <b>support desk</b></span><span class="status proposed">proposed</span><span>reviewed 2026-11-16 · 0 days ago</span></p>
+    <p class="meta"><span>owner <b>support desk</b></span><span class="status closed">closed</span><span>reviewed 2026-11-16 · 0 days ago</span></p>
   </header>
   
-  <main><p>The <a href="/kb/incidents/4471">incident page</a> marked all of #4471 as one known issue with a fix queued. The 4 October 2026 export shows two problems. Give each its own engineering ticket and count.</p>
-<h2>What needs fixing</h2>
+  <main><p>The <a href="/kb/incidents/4471">incident page</a> marked all of #4471 as one known issue with a fix queued. The 4 October 2026 export separates the reports into two causes. The desk later recorded a different outcome for each.</p>
+<h2>Engineering update for 5 October 2026</h2>
+<p>The <a href="https://hq.mega.dev/challenges/what-it-shows#engineering-update">support desk closed #4471</a> on 5 October.</p>
 <ul>
-<li><strong>Parser.</strong> The shared parser reads numeric dates month first even when a tenant uses a day-first locale. Interpret input using the tenant's date order.</li>
-<li><strong>Booking-v3 hint.</strong> The form prompts visitors to enter <code>MM/DD/YYYY</code> while reading day-first tenants' entries as <code>DD/MM/YYYY</code>. Make the form's hint match the date order it uses to interpret input.</li>
+<li><strong>Parser: fixed.</strong> The shared parser had read numeric dates month first for tenants using a day-first locale. Engineering recorded <code>fix(dates): parse dd/mm for eu locales</code>. The matching resolution for <a href="https://github.com/mgestwa/mega-s01e03-what-it-shows/issues/2">parser issue #2</a> is <strong>Completed</strong>.</li>
+<li><strong>Booking-v3 hint: won't fix.</strong> The form displayed <code>MM/DD/YYYY</code> while reading day-first tenants' entries as <code>DD/MM/YYYY</code>. The desk retired the form. The matching resolution for <a href="https://github.com/mgestwa/mega-s01e03-what-it-shows/issues/1">hint issue #1</a> is <strong>Not planned</strong>.</li>
 </ul>
+<h2>Reports in the 4 October export</h2>
 <p class="sum"><strong>412</strong> reports merged into #4471 · <strong>2</strong> causes</p>
 <table>
   <thead><tr><th>cause</th><th>reports</th><th>tagged as</th><th>tenants</th><th>seen</th><th></th></tr></thead>
@@ -66,7 +68,7 @@ svg { width: 100%; max-width: 640px; }
 <tr class="wrong"><td><code>hint</code></td><td>33</td><td class="tags">hint ×18 · parser ×15</td><td>3</td><td>2026-04-17 → 2026-09-22</td><td>not this ticket — no ticket of its own</td></tr></tbody>
 </table>
 <p class="note">5 reports read as a one-day move; filed under <code>parser</code> by tenant.</p>
-<p>The counts use one record per report ID and the desk's cause rules for tenant locale, booking form and intake channel. The <strong>tagged as</strong> column shows the original intake guesses. Keep the reports flagged as apparent one-day moves under the cause shown above and verify those symptoms when checking the fix.</p>
+<p>The counts use one record per report ID and the desk's cause rules for tenant locale, booking form and intake channel. The <strong>tagged as</strong> column shows the original intake guesses. The last column shows how the reports were filed when the desk made the export. The apparent one-day moves remain counted under parser and flagged for follow-up on their specific symptoms.</p>
 <h2>Received and merged</h2>
 <figure>
 <svg viewBox="0 0 648 140" role="img" aria-label="reports received and merged into #4471, per week"><rect class="in" x="2" y="106.29629629629629" width="9" height="3.7037037037037033"></rect><rect class="merged" x="12" y="110" width="9" height="0"></rect><text x="12" y="128">03-30</text>
@@ -98,15 +100,15 @@ svg { width: 100%; max-width: 640px; }
 <rect class="in" x="626" y="102.06349206349206" width="9" height="7.936507936507936"></rect><rect class="merged" x="636" y="101.00529100529101" width="9" height="8.994708994708994"></rect></svg>
 <figcaption><span class="key in"></span> received · <span class="key merged"></span> merged into #4471 · per week</figcaption>
 </figure>
-<p>The week starting 29 June shows a batch of earlier reports being merged into #4471. Reports continued to arrive through the end of the export. The queue records intake and merges. Use a separate verification step before marking either fix complete.</p>
+<p>The week starting 29 June shows a batch of earlier reports being merged into #4471. Reports continued to arrive through the end of the export. The queue shows intake and merges through 4 October. The 5 October engineering update records the outcomes separately.</p>
 <h2>How to triage the next report</h2>
-<p><a href="/kb/decisions/0001-dedupe-by-subject">Decision 0001</a> tells the desk to merge on normalized subject lines. Check the cause first. Two reports with the same subject from the same day-first <code>booking-v3</code> tenant can need different fixes if one came through the form and the other through the app. An app report and an email report can share the parser cause even when their subjects differ.</p>
+<p><a href="/kb/decisions/0001-dedupe-by-subject">Decision 0001</a>, last reviewed on 11 June 2024, tells the desk to merge on normalized subject lines. Check the cause first. Two reports with the same subject from the same day-first <code>booking-v3</code> tenant can need different fixes if one came through the form and the other through the app. An app report and an email report can share the parser cause even when their subjects differ.</p>
 <ol>
 <li>Look up the tenant's date order and form version, then identify the report's channel.</li>
 <li>Merge a report into an existing engineering ticket when both have the same verified cause. Route parser and hint reports to their respective tickets.</li>
 <li>Keep reports with missing tenant details unclassified while the desk verifies their cause.</li>
 </ol>
-<p class="stamp">desk ref <b>DR-KE96-CY54</b></p></main>
+<p class="stamp">desk ref <b>DR-5C9S-KFSB</b></p></main>
   <footer>Pages are written by people. Tables and charts are built from data at render time.</footer>
 </div>
 </body>
